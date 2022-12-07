@@ -1,8 +1,8 @@
 import multer from 'multer';
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 import bodyParser from 'body-parser';
-import {Product} from "./src/entity/Product";
-import {AppDataSource} from "./src/data-source";
+import { Product } from "./src/entity/Product";
+import { AppDataSource } from "./src/data-source";
 const PORT = 3000;
 
 const storage = multer.diskStorage({
@@ -32,11 +32,11 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.static( './src/public'));
+app.use(express.static('./src/public'));
 
 app.get('/products', async (req: Request, res: Response) => {
     let products = await AppDataSource.getRepository(Product).find();
-    res.render('list', {products: products});
+    res.render('list', { products: products });
 })
 
 app.get('/products/create', (req: Request, res: Response) => {
@@ -55,7 +55,7 @@ app.post("/products/create", upload.single('image'), async (req: any, res: any) 
         const productRepository = AppDataSource.getRepository(Product)
         await productRepository.save(product);
         res.redirect("/products")
-    }catch (e) {
+    } catch (e) {
         console.log(e.message);
     }
 });

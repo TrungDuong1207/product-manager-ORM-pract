@@ -8,8 +8,8 @@ import {
 export class Product {
 
     @PrimaryGeneratedColumn()
-
     public readonly id: number;
+    
     @Column()
     public price: number;
 
